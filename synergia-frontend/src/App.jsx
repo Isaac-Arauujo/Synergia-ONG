@@ -16,13 +16,13 @@ import AddTool from './pages/AddTool';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
 import Perfil from './pages/Perfil';
 import Contato from './pages/Contato';
-import DetalhesLocal from "./pages/DetalhesLocal";
+import MeuPerfil from './pages/MeuPerfil';
+import Guaruja from './pages/descricaolocal/Guaruja';
+import Cipo from './pages/descricaolocal/Cipo';
+import Tiete from './pages/descricaolocal/Tiete';
 
-
-// Layout
 import MainLayout from './layouts/MainLayout';
 
-// Componente de rota protegida
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const { isAuthenticated, usuario, carregando } = useAuth();
   
@@ -48,22 +48,14 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
   return children;
 };
 
-// Componente de rota pública (apenas para não autenticados)
-// Comportamento:
-// - Enquanto `carregando` mostra um spinner
-// - Se a query `?force=true` estiver presente, mostra a rota pública (útil para dev)
-// - Se não autenticado, mostra a rota pública
-// - Se autenticado, redireciona de acordo com o papel: admin -> /admin, usuário -> /locais
 const PublicRoute = ({ children }) => {
   const { isAuthenticated, usuario, carregando } = useAuth();
 
-  // Permite forçar visualização de páginas públicas durante desenvolvimento
   let forcePublic = false;
   try {
     const params = new URLSearchParams(window.location.search);
     forcePublic = params.get('force') === 'true';
   } catch (e) {
-    // ambiente onde window pode não estar definido — ignorar
   }
 
   if (carregando) {
@@ -78,7 +70,6 @@ const PublicRoute = ({ children }) => {
 
   if (!isAuthenticated) return children;
 
-  // Redireciona usuário autenticado conforme papel
   return usuario?.isAdmin ? <Navigate to="/admin" replace /> : <Navigate to="/locais" replace />;
 };
 
@@ -95,9 +86,14 @@ function App() {
             <Route path="/login" element={<Login />} />
 
             <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/meuperfil" element={<MeuPerfil />} />
+                      <Route path="/guaruja" element={<Guaruja />} />
+<Route path="/cipo" element={<Cipo />} />
+<Route path="/tiete" element={<Tiete />} />
+
+
 
             <Route path="/esqueci-senha" element={<EsqueciSenha />} />
-            <Route path="/local/guaruja" element={<DetalhesLocal />} />
             {/* Rotas protegidas com layout */}
             <Route path="/admin" element={
               <ProtectedRoute requireAdmin={true}>

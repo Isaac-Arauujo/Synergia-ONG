@@ -1,218 +1,120 @@
-:root {
-    --color-green-dark: #008779; 
-    --color-green-light: #008779; 
-    --color-orange: #d9785c; 
-    --color-white: #ffffff;
-    --color-gray-text: #4a4a4a;
-    --color-light-gray: #f4f4f4;
-}
-
+/* ======== RESET ======== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* ======== GARANTE FUNDO BRANCO NA PÁGINA INTEIRA ======== */
 body {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--color-gray-text);
-    line-height: 1.6;
-    background-color: var(--color-white);
-    min-height: 100vh;
-    margin-top: 0;
-    padding-top: 0;
+  background: #fff !important;
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  min-height: 100vh;
 }
 
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
+/* ======== NAVBAR ======== */
 .navbar-contato {
-   background-color: transparent;
-    padding: 0; 
-    margin-top: 0;
+  background-color: #008779;
+  width: 100%;
 }
 
 .navbar {
- display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px; 
-    background-color: rgba(0, 0, 0, 0.2); 
-    color: var(--color-white);
-}
-.navbar .logo img {
-    height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: #008779;
+  color: white;
 }
 
 .navbar nav a {
-    margin-left: 25px;
-    font-size: 0.9em;
-    font-weight: 600;
-    color: var(--color-white); 
-    transition: color 0.3s;
+  margin-left: 25px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
 .navbar nav a:hover {
-    color: var(--color-green-light);
-}
-   .contact-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 20px 120px;
+  opacity: 0.7;
 }
 
-
-
-
-
-.contact-container {
-    display: flex;
-    max-width: 1000px;
-    width: 100%;
-    box-shadow: 0 22px 50px rgba(3, 31, 24, 0.12);
-    border-radius: 14px;
-    overflow: hidden;
-    background-color: var(--color-green-dark); /* green block in the center */
-    margin: 40px auto;
-    position: relative;
+/* ======== CONTAINER GERAL DO CONTATO ======== */
+.contact-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  gap: 0;
+  background: white;
 }
 
+/* ======== COLUNA DA ESQUERDA (VERDE) ======== */
 .contact-info {
-    flex: 0 0 46%;
-    /* container is green now, keep this area transparent so text shows on green */
-    background-color: transparent;
-    color: var(--color-white);
-    padding: 72px 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  background-color: #008779;
+  color: white;
+  width: 35%;
+  padding: 60px 40px;
+  border-radius: 20px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
-.contact-info h1 {
-    font-size: 3.4rem;
-    line-height: 1.02;
-    margin-bottom: 36px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    text-transform: uppercase;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px; 
-    font-size: 1rem;
-}
-
-.info-item i {
-    font-size: 1.05rem; 
-    width: 38px; 
-    height: 38px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-white);
-    background: rgba(255,255,255,0.06);
-    border-radius: 50%;
-    margin-right: 12px;
-}
-
-.instagram-icon i {
-    font-size: 1.5rem;
-    display:inline-block;
-    background: rgba(255,255,255,0.06);
-    padding: 8px;
-    border-radius: 8px;
-}
-.instagram-icon p { display:none; }
-
-.contact-form-card {
-    flex: 1;
-    background-color: var(--color-white);
-    padding: 34px 46px;
-    border-radius: 0 12px 12px 0; 
-}
-
-.contact-form { display:flex; flex-direction:column; gap:18px; }
-
-.interesed-in-label {
-    font-size: 1em;
-    font-weight: 700;
-    color: var(--color-gray-text);
-    margin-bottom: 15px;
+/* ======== COLUNA DA DIREITA (FORMULÁRIO) ======== */
+.contact-form {
+  width: 65%;
+  background: white;
+  padding: 50px 40px;
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .contact-form label {
-    font-size: 0.9em;
-    color: var(--color-gray-text);
-    font-weight: 600;
-    margin-top: 5px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  display: block;
 }
 
 .contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 10px 6px;
-    border: none;
-    border-bottom: 1px solid #d9d9d9;
-    font-size: 0.98rem;
-    outline: none;
-    transition: border-color 0.15s;
-    resize: vertical;
-    color: var(--color-gray-text);
-    background-color: transparent;
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 1em;
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
-    border-bottom-color: var(--color-green-dark);
+/* BOTÃO */
+.btn-enviar {
+  width: 100%;
+  padding: 15px;
+  background: #008779;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.contact-form textarea { min-height:140px; border: 1px solid #e6e6e6; border-radius:8px; padding:12px; }
-
-.btn-send {
-    background-color: var(--color-green-dark);
-    color: var(--color-white);
-    padding: 14px 28px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 18px;
-    transition: background-color 0.12s, transform 0.12s;
-    box-shadow: none;
-}
-.btn-send:hover { background-color: #006b5f; transform: translateY(-1px); }
-
-.contact-container:before {
-    content: '';
-    position: absolute;
-    width: 92%;
-    height: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;
-    border-radius: 12px;
-    z-index: 0;
+.btn-enviar:hover {
+  opacity: 0.85;
 }
 
-.contact-container > * { position: relative; z-index: 2; }
-
+/* ======== RESPONSIVIDADE ======== */
 @media (max-width: 900px) {
-    .navbar {
-        padding: 20px;
-    }
-    .navbar nav {
-        
-        display: none; 
-    }
-    .contact-container { flex-direction: column; }
-    .contact-form-card { border-radius: 0 0 12px 12px; }
-    .contact-info { border-radius: 12px 12px 0 0; padding: 28px; }
-    
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  .contact-info,
+  .contact-form {
+    width: 100%;
+    border-radius: 0;
+  }
 }

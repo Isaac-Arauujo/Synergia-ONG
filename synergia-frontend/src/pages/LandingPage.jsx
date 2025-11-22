@@ -67,9 +67,9 @@ export default function LandingPage() {
                 <img src="src/img/Captura de tela 2025-11-11 204408.png" alt="Voluntário em Cipó-Guaçu" />
               </div>
               <p>Cipó-Guaçu</p>
-              <a href="/local/cipo" className="btn-link">
-                <button className="btn-details">Ver Detalhes</button>
-              </a>
+              <a href="/cipo" className="btn-link">
+  <button className="btn-details">Ver Detalhes</button>
+</a>
             </div>
 
             <div className="location-card">
@@ -77,9 +77,9 @@ export default function LandingPage() {
                 <img src="https://cj.estrategia.com/portal/wp-content/uploads/2025/01/11193245/173601144167796eb18406f_1736011441_3x2_md.jpg" alt="Voluntário no Guarujá" />
               </div>
               <p>Guarujá</p>
-              <a href="uaruja" className="btn-link">
-                <button className="btn-details">Ver Detalhes</button>
-              </a>
+              <a href="/guaruja" className="btn-link">
+  <button className="btn-details">Ver Detalhes</button>
+</a>
             </div>
 
             <div className="location-card">
@@ -87,9 +87,9 @@ export default function LandingPage() {
                 <img src="https://imagens.ebc.com.br/jZNaSA3QeJIK98QbfuhU7bcBEfY=/1170x700/smart/https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/rvrsa_abr_080720120506_0.jpg?itok=qUdSTuvR" alt="Voluntário no Rio Tietê" />
               </div>
               <p>Rio Tietê</p>
-              <a href="/local/tiete" className="btn-link">
-                <button className="btn-details">Ver Detalhes</button>
-              </a>
+            <a href="/tiete" className="btn-link">
+  <button className="btn-details">Ver Detalhes</button>
+</a>
             </div>
           </div>
         </section>
@@ -136,21 +136,24 @@ export default function LandingPage() {
           <h2>FEEDBACKS SYNERGIES</h2>
           <div className="feedbacks-grid">
             {[{
-              text: "Sou apaixonada pela causa animal...",
-              role: "Voluntaria",
-              name: "Emanuel Boyle",
-              img: "src/img/Captura de tela 2025-11-11 204657.png"
-            }, {
-              text: "Participar da Synergia me mostrou o poder da ação local...",
-              role: "Voluntaria",
-              name: "Ana Beatriz",
-              img: "src/img/Captura de tela 2025-11-11 204724.png"
-            }, {
-              text: "No meu bairro, o projeto da Synergia fez toda a diferença...",
-              role: "Voluntaria",
-              name: "Pietra Lima",
-              img: "src/img/Captura de tela 2025-11-11 204657.png"
-            }].map((fb, i) => (
+  text: "A Synergia me acolheu de um jeito único. Participar das ações pela causa animal transformou meu olhar sobre o mundo. Hoje me sinto parte de algo maior, onde cada pequena atitude faz diferença.",
+  role: "Voluntária",
+  name: "Emanuel Boyle",
+  img: "src/img/Captura de tela 2025-11-11 204657.png"
+}
+, {
+  text: "Participar da Synergia me mostrou na prática como a ação local tem poder. A cada mutirão, a gente percebe o impacto real na vida das pessoas e na preservação do meio ambiente. É inspirador demais.",
+  role: "Voluntária",
+  name: "Ana Beatriz",
+  img: "src/img/Captura de tela 2025-11-11 204724.png"
+}
+,{
+  text: "No meu bairro, o projeto da Synergia mudou tudo. Ver crianças, famílias e voluntários unidos por um ambiente melhor me emociona. Eu nunca imaginei que pudesse contribuir tanto para minha comunidade.",
+  role: "Voluntária",
+  name: "Pietra Lima",
+  img: "src/img/Captura de tela 2025-11-11 204657.png"
+}
+].map((fb, i) => (
               <div className="feedback-card" key={i}>
                 <div className="quote-icon">"</div>
                 <p>{fb.text}</p>

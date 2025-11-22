@@ -17,7 +17,6 @@
 
 body {
     font-family: var(--font-family);
-    background-color: var(--color-background-light);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,18 +174,16 @@ body {
     text-decoration: none; 
 }
 
-/* Ajustes do rodapé para não ficar com faixa escura sobreposta */
 footer {
     background: transparent;
     color: var(--color-text-dark);
     position: relative;
-    z-index: 20; /* garantir que fique acima de pseudo-elementos do cartão */
+    z-index: 20; 
     box-shadow: none;
     padding: 12px 0;
     margin-top: 20px;
 }
 
-/* Em telas menores reduzimos o efeito de fundo grande para evitar sobreposição visual */
 @media (max-width: 900px) {
     .cadastro-card-container::before {
         width: 420px;

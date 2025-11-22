@@ -103,6 +103,10 @@ background-image: url('../img/unnamed.jpg');
   color: var(--color-green-dark);
   transform: translateY(-1px);
 }
+.feedback-card .role,
+.feedback-card .name {
+  color: #ffffff !important;   /* deixa o texto branco */
+}
 
 .btn-login:focus {
   outline: 3px solid rgba(0,135,121,0.12);

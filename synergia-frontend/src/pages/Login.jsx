@@ -32,7 +32,8 @@ export default function Login() {
     try {
       const result = await login(formData.email, formData.senha);
       if (result.success) {
-        navigate("/locais");
+        // Redirect to landing page after successful login
+        navigate("/");
       } else {
         setError(result.error);
       }
