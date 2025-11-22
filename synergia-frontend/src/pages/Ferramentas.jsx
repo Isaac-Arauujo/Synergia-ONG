@@ -5,7 +5,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { ferramentaService } from '../services/ferramentaService';
 import ToolCard from '../components/ToolCard';
 import Pagination from '../components/Pagination';
- 
 export default function Ferramentas() {
   const [ferramentas, setFerramentas] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');

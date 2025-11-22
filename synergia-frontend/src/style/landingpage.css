@@ -1,7 +1,7 @@
 /* Modernized landing page styles - mobile-first, responsive and accessible */
 :root {
   --color-green-dark: #008779;
-  --color-green-light: #00a68a;
+  --color-green-light: #008779;
   --color-orange: #d9785c;
   --color-white: #ffffff;
   --color-gray-text: #333333;
@@ -123,7 +123,12 @@ background-image: url('../img/unnamed.jpg');
   grid-template-columns: 1fr 360px;
   gap: 18px;
   align-items:center;
-  background: linear-gradient(90deg, rgba(0,135,121,0.95), rgba(0,166,138,0.92));
+  background: linear-gradient(
+    90deg,
+    var(--color-green-dark),
+   rgb(1, 85, 77)  
+);
+
   color: var(--color-white);
   padding: 22px;
   border-radius: var(--radius);

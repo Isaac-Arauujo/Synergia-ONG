@@ -7,10 +7,8 @@ export default function LandingPage() {
     <div className="landing-page">
 
       {/* HEADER */}
-      <header 
-        className="hero-section"
-        style={{ backgroundImage: `url(${heroBg})` }}  // ✅ FUNDO APLICADO
-      >
+    <header className="hero-section">
+
         <div className="navbar">
           <div className="logo"></div>
           <nav>
