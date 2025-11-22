@@ -69,12 +69,7 @@ function Locais() {
 
   return (
     <div className="p-8 w-full bg-white min-h-screen">
-      <Topbar 
-        searchTerm={searchTerm} 
-        setSearchTerm={setSearchTerm}
-        user={usuario}
-      />
-
+  
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
           {error}

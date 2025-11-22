@@ -119,13 +119,13 @@ function App() {
               </ProtectedRoute>
             } />
 
-            <Route path="/ferramentas" element={
-              <ProtectedRoute>
-                <MainLayout>
-                  <Ferramentas />
-                </MainLayout>
-              </ProtectedRoute>
-            } />
+          <Route path="/ferramentas" element={
+       <ProtectedRoute requireAdmin={true}>
+        <MainLayout>
+          <Ferramentas />
+      </MainLayout>
+       </ProtectedRoute>
+} />
 
             <Route path="/ferramentas/novo" element={
               <ProtectedRoute requireAdmin={true}>
