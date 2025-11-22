@@ -2,37 +2,38 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff, Loader } from "lucide-react";
-import "../style/login.css";  // << IMPORTANTE: seu layout antigo aqui
- 
+import "../style/login.css";
+
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     senha: ""
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
- 
+
   const { login } = useAuth();
   const navigate = useNavigate();
- 
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
     setError("");
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
- 
+
     try {
       const result = await login(formData.email, formData.senha);
+
       if (result.success) {
-        // Redirect to landing page after successful login
         navigate("/");
       } else {
         setError(result.error);
@@ -43,21 +44,21 @@ export default function Login() {
       setLoading(false);
     }
   };
- 
+
   return (
-<div className="background-container">
+    <div className="background-container">
       {/* LOGO */}
-<header className="logo">
-<span className="logo-text">Synergia</span>
-</header>
- 
+      <header className="logo">
+        <span className="logo-text">Synergia</span>
+      </header>
+
       {/* CARD */}
-<div className="login-card-container">
-<div className="login-card">
-<h1 className="card-title">LOGIN</h1>
- 
+      <div className="login-card-container">
+        <div className="login-card">
+          <h1 className="card-title">LOGIN</h1>
+
           {error && (
-<div
+            <div
               style={{
                 background: "#ffe5e5",
                 border: "1px solid #ffb3b3",
@@ -68,17 +69,18 @@ export default function Login() {
                 marginBottom: "10px",
                 fontSize: "0.9em"
               }}
->
+            >
               {error}
-</div>
+            </div>
           )}
- 
+
           {/* FORM */}
-<form className="login-form" onSubmit={handleSubmit}>
+          <form className="login-form" onSubmit={handleSubmit}>
+
             {/* EMAIL */}
-<div className="input-group">
-<label htmlFor="email">E-mail</label>
-<input
+            <div className="input-group">
+              <label htmlFor="email">E-mail</label>
+              <input
                 type="email"
                 id="email"
                 name="email"
@@ -86,12 +88,12 @@ export default function Login() {
                 onChange={handleChange}
                 required
               />
-</div>
- 
+            </div>
+
             {/* SENHA */}
-<div className="input-group" style={{ position: "relative" }}>
-<label htmlFor="senha">Senha</label>
-<input
+            <div className="input-group" style={{ position: "relative" }}>
+              <label htmlFor="senha">Senha</label>
+              <input
                 type={showPassword ? "text" : "password"}
                 id="senha"
                 name="senha"
@@ -100,7 +102,7 @@ export default function Login() {
                 required
                 style={{ paddingRight: "45px" }}
               />
- 
+
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -114,48 +116,47 @@ export default function Login() {
                   cursor: "pointer",
                   color: "#777"
                 }}
->
+              >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-</button>
-</div>
- 
+              </button>
+            </div>
+
             {/* ESQUECEU A SENHA */}
-<Link to="/esqueci-senha" className="forgot-password">
+            <Link to="/esqueci-senha" className="forgot-password">
               Esqueceu a senha?
-</Link>
- 
+            </Link>
+
             {/* BUTTON */}
-<button
+            <button
               type="submit"
               className="btn btn-login"
               disabled={loading}
->
+            >
               {loading ? (
-<>
-<Loader size={20} className="animate-spin" style={{ marginRight: 5 }} />
+                <>
+                  <Loader size={20} className="animate-spin" style={{ marginRight: 5 }} />
                   Entrando...
-</>
+                </>
               ) : (
                 "Entrar"
               )}
-</button>
-</form>
- 
+            </button>
+          </form>
+
           {/* TEXTO CADASTRO */}
-<p className="register-text">
+          <p className="register-text">
             Sem{" "}
-<Link to="/cadastro" className="register-link-highlight">
+            <Link to="/cadastro" className="register-link-highlight">
               Cadastro
-</Link>
+            </Link>
             ? Venha mudar o mundo conosco.
-</p>
- 
-          {/* BOTÃO CADASTRO */}
-<Link to="/cadastro" className="btn btn-register">
+          </p>
+
+          <Link to="/cadastro" className="btn btn-register">
             Cadastre-se
-</Link>
-</div>
-</div>
-</div>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

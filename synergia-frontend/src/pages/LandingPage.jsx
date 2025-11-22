@@ -1,13 +1,38 @@
 import React from "react";
 import "../style/landingpage.css";
-import heroBg from "../img/unnamed.jpg";  // ✅ IMPORTANDO A IMAGEM
+import heroBg from "../img/unnamed.jpg";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <div className="landing-page">
 
       {/* HEADER */}
-    <header className="hero-section">
+      <header className="hero-section">
+
+        {/* BOTÃO/FOTO DO USUÁRIO */}
+        <div className="user-profile">
+          {user ? (
+            <button
+              className="profile-button"
+              onClick={() => navigate("/usuario")}
+            >
+              <img
+                src={
+                  user.fotoPerfil ||
+                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                }
+                alt="Foto do usuário"
+              />
+            </button>
+          ) : (
+            <a href="/login" className="btn-login-header">Login</a>
+          )}
+        </div>
 
         <div className="navbar">
           <div className="logo"></div>
@@ -20,15 +45,18 @@ export default function LandingPage() {
           </nav>
         </div>
 
-          <div className="hero-content">
-            <h1>Como podemos mudar o mundo?</h1>
-            <p>Tudo começa com um simples passo.</p>
-            <div className="hero-buttons">
-              <a href="/cadastro" className="btn-volunteer">Seja Voluntário</a>
-              <a href="/login" className="btn-login">Login</a>
-            </div>
+        <div className="hero-content">
+          <h1>Como podemos mudar o mundo?</h1>
+          <p>Tudo começa com um simples passo.</p>
+          <div className="hero-buttons">
+            <a href="/cadastro" className="btn-volunteer">Seja Voluntário</a>
+            <a href="/login" className="btn-login">Login</a>
           </div>
-        </header>
+        </div>
+      </header>
+
+      {/* O RESTO DO SEU CÓDIGO DA LANDING PAGE... */}
+
 
         {/* ABOUT SECTION */}
         <section className="about-section container" id="about">

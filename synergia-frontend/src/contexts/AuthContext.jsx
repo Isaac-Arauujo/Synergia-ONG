@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Verificar se há usuário salvo no localStorage ao carregar a aplicação
     const carregarUsuarioSalvo = async () => {
       try {
         const usuarioSalvo = localStorage.getItem('usuario');
@@ -25,8 +24,6 @@ export const AuthProvider = ({ children }) => {
         
         if (usuarioSalvo && token) {
           const usuarioData = JSON.parse(usuarioSalvo);
-          
-          // Verificar se o token ainda é válido (opcional - pode fazer uma chamada à API)
           setUsuario(usuarioData);
         }
       } catch (err) {
@@ -46,13 +43,12 @@ export const AuthProvider = ({ children }) => {
       const result = await usuarioService.login(email, senha);
       
       if (result && result.id) {
-        // Simular token JWT (em produção viria do backend)
-        const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(JSON.stringify(result))}.signature`;
-        
+        const token = `ey.fake.${btoa(JSON.stringify(result))}.token`;
+
         setUsuario(result);
         localStorage.setItem('usuario', JSON.stringify(result));
         localStorage.setItem('authToken', token);
-        
+
         return { success: true, data: result };
       } else {
         throw new Error('Credenciais inválidas');
@@ -84,24 +80,25 @@ export const AuthProvider = ({ children }) => {
   };
 
   const atualizarUsuario = (dadosAtualizados) => {
-    setUsuario(prev => ({ ...prev, ...dadosAtualizados }));
-    localStorage.setItem('usuario', JSON.stringify({ ...usuario, ...dadosAtualizados }));
-  };
-
-  const value = {
-    usuario,
-    carregando,
-    error,
-    login,
-    logout,
-    cadastrar,
-    atualizarUsuario,
-    isAuthenticated: !!usuario,
-    isAdmin: usuario?.isAdmin || false
+    const updated = { ...usuario, ...dadosAtualizados };
+    setUsuario(updated);
+    localStorage.setItem('usuario', JSON.stringify(updated));
   };
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider
+      value={{
+        usuario,
+        carregando,
+        error,
+        login,
+        logout,
+        cadastrar,
+        atualizarUsuario,
+        isAuthenticated: !!usuario,
+        isAdmin: usuario?.isAdmin || false
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
