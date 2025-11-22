@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
 // Pages
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import EsqueciSenha from './pages/EsqueciSenha';
-import LandingPage from './pages/LandingPage';
 import Locais from './pages/Locais';
 import Ferramentas from './pages/Ferramentas';
 import Inscricoes from './pages/Inscricoes';
@@ -16,6 +16,8 @@ import AddTool from './pages/AddTool';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
 import Perfil from './pages/Perfil';
 import Contato from './pages/Contato';
+import DetalhesLocal from "./pages/DetalhesLocal";
+
 
 // Layout
 import MainLayout from './layouts/MainLayout';
@@ -47,9 +49,23 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
 };
 
 // Componente de rota pública (apenas para não autenticados)
+// Comportamento:
+// - Enquanto `carregando` mostra um spinner
+// - Se a query `?force=true` estiver presente, mostra a rota pública (útil para dev)
+// - Se não autenticado, mostra a rota pública
+// - Se autenticado, redireciona de acordo com o papel: admin -> /admin, usuário -> /locais
 const PublicRoute = ({ children }) => {
-  const { isAuthenticated, carregando } = useAuth();
-  
+  const { isAuthenticated, usuario, carregando } = useAuth();
+
+  // Permite forçar visualização de páginas públicas durante desenvolvimento
+  let forcePublic = false;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    forcePublic = params.get('force') === 'true';
+  } catch (e) {
+    // ambiente onde window pode não estar definido — ignorar
+  }
+
   if (carregando) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -57,8 +73,13 @@ const PublicRoute = ({ children }) => {
       </div>
     );
   }
-  
-  return !isAuthenticated ? children : <Navigate to="/admin" replace />;
+
+  if (forcePublic) return children;
+
+  if (!isAuthenticated) return children;
+
+  // Redireciona usuário autenticado conforme papel
+  return usuario?.isAdmin ? <Navigate to="/admin" replace /> : <Navigate to="/locais" replace />;
 };
 
 function App() {
@@ -71,24 +92,12 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/contato" element={<Contato />} />
             
-            <Route path="/login" element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            } />
-            
-            <Route path="/cadastro" element={
-              <PublicRoute>
-                <Cadastro />
-              </PublicRoute>
-            } />
-            
-            <Route path="/esqueci-senha" element={
-              <PublicRoute>
-                <EsqueciSenha />
-              </PublicRoute>
-            } />
+            <Route path="/login" element={<Login />} />
 
+            <Route path="/cadastro" element={<Cadastro />} />
+
+            <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+            <Route path="/local/guaruja" element={<DetalhesLocal />} />
             {/* Rotas protegidas com layout */}
             <Route path="/admin" element={
               <ProtectedRoute requireAdmin={true}>
