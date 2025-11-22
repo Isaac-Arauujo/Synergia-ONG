@@ -2,18 +2,15 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/*/.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        'synergia': {
-          green: '#00715D',
-          light: '#588461',
-          dark: '#005a49'
-        }
-      }
+        "synergia-green": "#008779",
+        "synergia-dark": "#006c5f",
+      },
     },
   },
   plugins: [],
-}
+};

@@ -26,7 +26,6 @@ export default function Cadastro() {
 
     let formattedValue = value;
 
-    // Formatação de CPF
     if (name === "cpf") {
       formattedValue = value
         .replace(/\D/g, "")
