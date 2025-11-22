@@ -8,8 +8,8 @@ export default function AddTool() {
   const [form, setForm] = useState({
     nome: '',
     descricao: '',
-    imagemUrl: '',
-    quantidade: ''
+    quantidade: '',
+    image: null,
   });
   
   const [loading, setLoading] = useState(false);
@@ -20,11 +20,17 @@ export default function AddTool() {
   const { usuario } = useAuth();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm(prev => ({ 
-      ...prev, 
-      [name]: name === 'quantidade' ? (value === '' ? '' : parseInt(value)) : value 
-    }));
+    const { name, value, files } = e.target;
+
+    if (files) {
+      setForm(prev => ({ ...prev, [name]: files[0] }));
+    } else {
+      setForm(prev => ({
+        ...prev,
+        [name]: name === 'quantidade' ? (value === '' ? '' : parseInt(value)) : value
+      }));
+    }
+
     setError('');
     setSuccess('');
   };
@@ -48,24 +54,24 @@ export default function AddTool() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
     setError('');
 
     try {
+      // Caso você futuramente adicione upload real:
       await ferramentaService.criar({
         ...form,
-        quantidade: parseInt(form.quantidade)
+        quantidade: parseInt(form.quantidade),
       });
-      
+
       setSuccess('Ferramenta cadastrada com sucesso!');
+      
       setTimeout(() => {
         navigate('/ferramentas');
       }, 2000);
-      
+
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao cadastrar ferramenta');
     } finally {
@@ -77,8 +83,8 @@ export default function AddTool() {
     setForm({
       nome: '',
       descricao: '',
-      imagemUrl: '',
-      quantidade: ''
+      quantidade: '',
+      image: null,
     });
     setError('');
     setSuccess('');
@@ -86,10 +92,11 @@ export default function AddTool() {
 
   return (
     <div className="flex-1 flex flex-col min-h-screen">
-      {/* Header */}
+
+      {/* Header igual ao modelo Synergia */}
       <header className="flex justify-between items-center p-6 bg-gray-100">
-        <h3 className="text-lg font-bold text-synergia-green">Cadastrar Ferramenta</h3>
-        
+        <h3 className="text-lg font-bold" style={{ color: '#00715D' }}>Cadastrar Ferramenta</h3>
+
         <div className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity">
           <div className="text-right">
             <p className="text-sm font-bold text-gray-800">
@@ -106,22 +113,26 @@ export default function AddTool() {
       </header>
 
       <main className="p-8 bg-gray-100 flex-1 overflow-y-auto">
+
+        {/* Feedback */}
+        {error && (
+          <div className="max-w-xl mx-auto bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="max-w-xl mx-auto bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
+            {success}
+          </div>
+        )}
+
+        {/* Card central */}
         <div className="max-w-xl mx-auto bg-white rounded-lg shadow-sm p-8">
-          
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-              {error}
-            </div>
-          )}
 
-          {success && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
-              {success}
-            </div>
-          )}
+          <form onSubmit={handleSubmit} className="space-y-8 text-center">
 
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-6 text-center">Cadastrar Ferramenta</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6">Cadastrar Ferramenta</h2>
 
             {/* Nome */}
             <label className="block text-left flex items-center justify-between">
@@ -132,7 +143,7 @@ export default function AddTool() {
                 value={form.nome}
                 onChange={handleChange}
                 placeholder="Saco de Lixo"
-                className="w-2/3 p-3 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-synergia-green focus:border-synergia-green"
+                className="w-2/3 p-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400"
                 required
               />
             </label>
@@ -145,7 +156,7 @@ export default function AddTool() {
                 value={form.descricao}
                 onChange={handleChange}
                 placeholder="Breve descrição do equipamento"
-                className="w-2/3 h-28 p-3 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-synergia-green focus:border-synergia-green"
+                className="w-2/3 h-28 p-3 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400"
                 required
               />
             </label>
@@ -158,29 +169,33 @@ export default function AddTool() {
                 name="quantidade"
                 value={form.quantidade}
                 onChange={handleChange}
-                placeholder="10"
-                min="0"
-                className="w-2/3 p-3 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-synergia-green focus:border-synergia-green"
+                placeholder="10 Unidades"
+                className="w-2/3 p-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400"
                 required
               />
             </label>
-            
-            {/* Imagem URL */}
+
+            {/* Imagem (arquivo) */}
             <label className="block text-left flex items-center justify-between pt-4">
-              <span className="text-sm font-medium text-gray-700 w-1/3">URL da Imagem</span>
+              <span className="text-sm font-medium text-gray-700 w-1/3">Imagem</span>
               <div className="flex items-center gap-3 w-2/3">
-                <div className="flex items-center px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-600 bg-white">
-                  <Image className="w-4 h-4 mr-2 text-synergia-green" />
-                  URL da imagem
-                </div>
-                <input
-                  type="url"
-                  name="imagemUrl"
-                  value={form.imagemUrl}
-                  onChange={handleChange}
-                  placeholder="https://exemplo.com/imagem.jpg"
-                  className="flex-1 p-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-synergia-green focus:border-synergia-green"
-                />
+                <label className="flex items-center px-3 py-2 border border-gray-300 rounded-lg cursor-pointer text-sm text-gray-600 bg-white hover:bg-gray-50">
+                  <Image className="w-4 h-4 mr-2" style={{ color: '#00715D' }} />
+                  <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                  Upload da imagem
+                </label>
+
+                {form.image && (
+                  <span className="text-sm text-gray-600 truncate">
+                    {form.image.name}
+                  </span>
+                )}
               </div>
             </label>
 
@@ -189,7 +204,7 @@ export default function AddTool() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex items-center bg-synergia-green text-white px-8 py-3 rounded-lg font-medium hover:bg-synergia-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center bg-[#00715D] text-white px-8 py-2 rounded-lg font-medium hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -207,12 +222,12 @@ export default function AddTool() {
               <button
                 type="button"
                 onClick={handleRemove}
-                disabled={loading}
-                className="px-6 py-3 rounded-lg font-medium text-white bg-red-600 hover:bg-red-700 transition-colors disabled:opacity-50"
+                className="px-6 py-2 rounded-lg font-medium text-white bg-red-600 hover:bg-red-700 transition"
               >
-                Limpar
+                Remover
               </button>
             </div>
+
           </form>
         </div>
       </main>

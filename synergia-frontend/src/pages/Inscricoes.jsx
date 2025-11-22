@@ -204,25 +204,8 @@ export default function Inscricoes() {
                         />
                         <Search className="h-4 w-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     </div>
-
-                    {/* PERFIL */}
-                    <div 
-                        onClick={handleProfileClick}
-                        className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
-                    >
-                        <div className="text-right">
-                            <p className="text-sm font-bold text-gray-800">
-                                {usuario?.nomeCompleto || 'Usuário'}
-                            </p>
-                            <p className="text-xs text-gray-400">
-                                {usuario?.isAdmin ? 'Administrador' : 'Voluntário'}
-                            </p>
-                        </div>
-                        <div className="h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold text-gray-600">
-                            {usuario?.nomeCompleto?.substring(0, 2).toUpperCase() || 'US'}
-                        </div>
-                    </div>
                 </div>
+
             </header>
 
             {error && (

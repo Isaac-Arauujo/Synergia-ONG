@@ -104,25 +104,8 @@ export default function Ferramentas() {
             <Plus className="h-5 w-5 mr-2" />
             Nova Ferramenta
           </button>
-          
-          {/* Perfil */}
-          <div 
-            onClick={handleProfileClick}
-            className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
-          >
-            <div className="text-right">
-              <p className="text-sm font-bold text-gray-800">
-                {usuario?.nomeCompleto || 'Usuário'}
-              </p>
-              <p className="text-xs text-gray-400">
-                {usuario?.isAdmin ? 'Administrador' : 'Voluntário'}
-              </p>
-            </div>
-            <div className="h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold text-gray-600">
-              {usuario?.nomeCompleto?.substring(0, 2).toUpperCase() || 'US'}
-            </div>
-          </div>
         </div>
+          
       </header>
 
       {error && (
