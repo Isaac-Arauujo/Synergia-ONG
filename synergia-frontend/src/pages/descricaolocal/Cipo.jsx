@@ -1,9 +1,41 @@
 import React, { useEffect } from "react";
 import "./cipo.css";
+import { useAuth } from "../../contexts/AuthContext";
+
 
 export default function CipoGuacu() {
 
-  // Remove o fundo verde herdado da LandingPage
+  const { usuario, atualizarUsuario } = useAuth(); // ACESSA O USUÁRIO + FUNÇÃO DE ATUALIZAR
+
+  // Função chamada ao clicar no botão
+  const handleCandidatar = () => {
+    const novoLocal = {
+      titulo: "Cipó-Guaçu",
+      imagem:
+        "https://s2-g1.glbimg.com/HvepQASG4sw0nB2YpSgzCC6kU38=/0x0:993x584/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2022/H/7/3aWY0bRHWuLVlhNQvnsQ/mortandade-peixes.jpg",
+      link: "/cipo",
+    };
+
+    // Verifica se já se candidatou
+    const jaInscrito =
+      usuario?.locaisInscritos?.some((loc) => loc.titulo === novoLocal.titulo);
+
+    if (jaInscrito) {
+      alert("Você já se candidatou para este local!");
+      return;
+    }
+
+    // Atualiza o usuário com o novo local
+    atualizarUsuario({
+      locaisInscritos: [...(usuario?.locaisInscritos || []), novoLocal],
+    });
+
+    alert("Você se candidatou com sucesso! Seu local estará na sua página de perfil.");
+
+
+  };
+
+  // Remove o fundo verde da Landing Page
   useEffect(() => {
     document.body.style.background = "#fff";
     return () => {
@@ -18,11 +50,10 @@ export default function CipoGuacu() {
         <div className="navbar">
           <div className="logo"></div>
           <nav>
-              <a href="#about">Sobre Nós</a>
+            <a href="#about">Sobre Nós</a>
             <a href="/">Início</a>
             <a href="#how-it-works">Como funciona</a>
             <a href="/contato">Contato</a>
-            <a href="#projects">Projetos</a>
           </nav>
         </div>
       </header>
@@ -101,6 +132,13 @@ export default function CipoGuacu() {
             </p>
           </div>
         </section>
+
+        {/* BOTÃO FINAL */}
+        <div className="btn-candidatar-container">
+          <button className="btn-candidatar" onClick={handleCandidatar}>
+            Quero ajudar
+          </button>
+        </div>
 
         {/* MENSAGEM FINAL */}
         <div className="footer-message">

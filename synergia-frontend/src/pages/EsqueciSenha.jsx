@@ -15,8 +15,6 @@ export default function EsqueciSenha() {
     setLoading(true);
     setMessage("");
 
-    // Simulação de envio de email
-    // **Atenção: Substitua esta lógica de setTimeout pela sua chamada real ao backend aqui**
     setTimeout(() => {
       setMessage("Se o email existir em nosso sistema, você receberá instruções para redefinir sua senha.");
       setLoading(false);
@@ -93,10 +91,6 @@ export default function EsqueciSenha() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="footer-container p-6 text-center text-white text-sm"> {/* Adicionei uma classe para o footer se precisar estilizar */}
-        <p>Synergia ONG © 2024 - Todos os direitos reservados</p>
-      </footer>
     </div>
   );
 }

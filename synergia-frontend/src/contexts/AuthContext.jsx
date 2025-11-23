@@ -17,14 +17,13 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const carregarUsuarioSalvo = async () => {
+    const carregarUsuario = () => {
       try {
         const usuarioSalvo = localStorage.getItem('usuario');
         const token = localStorage.getItem('authToken');
-        
+
         if (usuarioSalvo && token) {
-          const usuarioData = JSON.parse(usuarioSalvo);
-          setUsuario(usuarioData);
+          setUsuario(JSON.parse(usuarioSalvo));
         }
       } catch (err) {
         console.error('Erro ao carregar usuário:', err);
@@ -34,29 +33,27 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    carregarUsuarioSalvo();
+    carregarUsuario();
   }, []);
 
   const login = async (email, senha) => {
     try {
       setError('');
       const result = await usuarioService.login(email, senha);
-      
-      if (result && result.id) {
-        const token = `ey.fake.${btoa(JSON.stringify(result))}.token`;
 
-        setUsuario(result);
-        localStorage.setItem('usuario', JSON.stringify(result));
-        localStorage.setItem('authToken', token);
+      if (!result?.id) throw new Error('Credenciais inválidas');
 
-        return { success: true, data: result };
-      } else {
-        throw new Error('Credenciais inválidas');
-      }
+      const token = `ey.fake.${btoa(JSON.stringify(result))}.token`;
+
+      setUsuario(result);
+      localStorage.setItem('usuario', JSON.stringify(result));
+      localStorage.setItem('authToken', token);
+
+      return { success: true, data: result };
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.message || 'Erro ao fazer login';
-      setError(errorMessage);
-      return { success: false, error: errorMessage };
+      const msg = error.response?.data?.message || error.message;
+      setError(msg);
+      return { success: false, error: msg };
     }
   };
 
@@ -73,32 +70,42 @@ export const AuthProvider = ({ children }) => {
       const novoUsuario = await usuarioService.cadastrar(usuarioData);
       return { success: true, data: novoUsuario };
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Erro ao cadastrar usuário';
-      setError(errorMessage);
-      return { success: false, error: errorMessage };
+      const msg = error.response?.data?.message || 'Erro ao cadastrar usuário';
+      setError(msg);
+      return { success: false, error: msg };
     }
   };
-
-  const atualizarUsuario = (dadosAtualizados) => {
-    const updated = { ...usuario, ...dadosAtualizados };
-    setUsuario(updated);
-    localStorage.setItem('usuario', JSON.stringify(updated));
+const atualizarUsuario = (dadosAtualizados) => {
+  const atualizado = {
+    ...usuario,
+    locaisInscritos: usuario?.locaisInscritos || [], // garante que existe
+    ...dadosAtualizados,
   };
-  return (
-    <AuthContext.Provider
-      value={{
-        usuario,
-        carregando,
-        error,
-        login,
-        logout,
-        cadastrar,
-        atualizarUsuario,
-        isAuthenticated: !!usuario,
-        isAdmin: usuario?.isAdmin || false
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+
+  setUsuario(atualizado);
+  localStorage.setItem("usuario", JSON.stringify(atualizado));
+  return atualizado;
+};
+
+
+
+ return (
+  <AuthContext.Provider
+    value={{
+      usuario,
+      carregando,
+      error,
+      login,
+      logout,
+      cadastrar,
+      atualizarUsuario,
+      isAuthenticated: !!usuario,
+      isAdmin: usuario?.isAdmin || false
+    }}
+  >
+    {children}
+  </AuthContext.Provider>
+);
+
+
 };

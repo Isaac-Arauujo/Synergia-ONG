@@ -293,4 +293,24 @@ a {
     }
  
 
+}.btn-candidatar-container {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.btn-candidatar {
+  background: #008779;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-candidatar:hover {
+  background: #006c5f;
+  transform: translateY(-2px);
 }

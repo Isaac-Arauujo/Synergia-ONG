@@ -1,10 +1,38 @@
 import React, { useEffect } from "react";
 import "./tiete.css";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Tiete() {
 
+  const { usuario, atualizarUsuario } = useAuth(); // <- IMPORTANTE
+
+  // Função do botão "Quero ajudar"
+  const handleCandidatar = () => {
+    const novoLocal = {
+      titulo: "Rio Tietê",
+      imagem:
+        "https://s2.static.brasilescola.uol.com.br/be/2020/07/poluicao-rio-tiete.jpg",
+      link: "/tiete",
+    };
+
+    const jaInscrito =
+      usuario?.locaisInscritos?.some((loc) => loc.titulo === novoLocal.titulo);
+
+    if (jaInscrito) {
+      alert("Você já se candidatou para este local!");
+      return;
+    }
+
+    atualizarUsuario({
+      locaisInscritos: [...(usuario?.locaisInscritos || []), novoLocal],
+    });
+
+    alert("Você se candidatou com sucesso! Seu local estará na sua página de perfil.");
+  };
+
+  // Remove fundo verde herdado
   useEffect(() => {
-    document.body.style.background = "#fff";  
+    document.body.style.background = "#fff";
     return () => {
       document.body.style.background = "";
     };
@@ -17,11 +45,10 @@ export default function Tiete() {
         <div className="navbar">
           <div className="logo"></div>
           <nav>
-              <a href="#about">Sobre Nós</a>
+            <a href="#about">Sobre Nós</a>
             <a href="/">Início</a>
             <a href="#how-it-works">Como funciona</a>
             <a href="/contato">Contato</a>
-            <a href="#projects">Projetos</a>
           </nav>
         </div>
       </header>
@@ -96,7 +123,12 @@ export default function Tiete() {
             </p>
           </div>
         </section>
-
+  {/* BOTÃO — AQUI */}
+            <div className="btn-candidatar-container">
+              <button className="btn-candidatar" onClick={handleCandidatar}>
+                Quero ajudar
+              </button>
+            </div>
         {/* MENSAGEM FINAL */}
         <div className="footer-message">
           <div className="container">

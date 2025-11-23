@@ -5,7 +5,6 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
-  // pegamos o usuário corretamente AS SOMENTE UMA VEZ
   const { usuario } = useAuth();
   const navigate = useNavigate();
 
@@ -17,19 +16,24 @@ export default function LandingPage() {
 
         {/* BOTÃO/FOTO DO USUÁRIO */}
         <div className="user-profile">
-        {usuario ? (
-  <button className="profile-button" onClick={() => navigate("/meuperfil")}>
-    <img
-      src={
-        usuario.fotoPerfil ||
-        "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-      }
-      alt="Foto do usuário"
-    />
-  </button>
-) : (
-  <a href="/login" className="btn-login-header">Login</a>
-)}
+    <div className="user-profile">
+  {usuario ? (
+    <button
+      className="profile-button"
+      onClick={() => navigate("/usuario")}
+    >
+      <img
+        src={
+          usuario.fotoPerfil ||
+          "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        }
+        alt="Foto do usuário"
+      />
+    </button>
+  ) : (
+    <a href="/login" className="btn-login-header">Login</a>
+  )}
+</div>
 
         </div>
 
@@ -41,7 +45,6 @@ export default function LandingPage() {
     <a href="/">Início</a>
     <a href="#how-it-works">Como funciona</a>
     <a href="/contato">Contato</a>
-    <a href="#projects">Projetos</a>
   </nav>
 
   <div className="navbar-profile">
