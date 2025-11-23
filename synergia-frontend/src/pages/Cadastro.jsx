@@ -26,7 +26,6 @@ export default function Cadastro() {
 
     let formattedValue = value;
 
-    // Formatação de CPF
     if (name === "cpf") {
       formattedValue = value
         .replace(/\D/g, "")
@@ -98,12 +97,14 @@ export default function Cadastro() {
       }
 
       const usuarioData = {
-        nomeCompleto: formData.nomeCompleto,
-        dataNascimento: formData.dataNascimento,
-        cpf: formData.cpf.replace(/\D/g, ""),
-        email: formData.email,
-        senha: formData.senha
-      };
+  nomeCompleto: formData.nomeCompleto,
+  dataNascimento: formData.dataNascimento,
+  cpf: formData.cpf.replace(/\D/g, ""),
+  email: formData.email,
+  senha: formData.senha,
+  confirmacaoSenha: formData.confirmacaoSenha
+};
+
 
       const result = await cadastrar(usuarioData);
 

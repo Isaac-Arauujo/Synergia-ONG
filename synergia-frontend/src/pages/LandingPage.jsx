@@ -5,7 +5,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
-  const { user } = useAuth();
+  // pegamos o usuário corretamente AS SOMENTE UMA VEZ
+  const { usuario } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -16,34 +17,51 @@ export default function LandingPage() {
 
         {/* BOTÃO/FOTO DO USUÁRIO */}
         <div className="user-profile">
-          {user ? (
-            <button
-              className="profile-button"
-              onClick={() => navigate("/usuario")}
-            >
-              <img
-                src={
-                  user.fotoPerfil ||
-                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                }
-                alt="Foto do usuário"
-              />
-            </button>
-          ) : (
-            <a href="/login" className="btn-login-header">Login</a>
-          )}
+        {usuario ? (
+  <button className="profile-button" onClick={() => navigate("/meuperfil")}>
+    <img
+      src={
+        usuario.fotoPerfil ||
+        "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+      }
+      alt="Foto do usuário"
+    />
+  </button>
+) : (
+  <a href="/login" className="btn-login-header">Login</a>
+)}
+
         </div>
 
-        <div className="navbar">
-          <div className="logo"></div>
-          <nav>
-            <a href="#about">Sobre Nós</a>
-            <a href="/">Início</a>
-            <a href="#how-it-works">Como funciona</a>
-            <a href="/contato">Contato</a>
-            <a href="#projects">Projetos</a>
-          </nav>
-        </div>
+<div className="navbar">
+  <div className="logo"></div>
+
+  <nav>
+    <a href="#about">Sobre Nós</a>
+    <a href="/">Início</a>
+    <a href="#how-it-works">Como funciona</a>
+    <a href="/contato">Contato</a>
+    <a href="#projects">Projetos</a>
+  </nav>
+
+  <div className="navbar-profile">
+    {usuario ? (
+      <button className="profile-button" onClick={() => navigate("/meuperfil")}>
+        <img
+          src={
+            usuario.fotoPerfil ||
+            "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+          }
+          alt="Foto do usuário"
+        />
+      </button>
+    ) : (
+      <a href="/login" className="btn-login-header">Login</a>
+    )}
+  </div>
+</div>
+
+
 
         <div className="hero-content">
           <h1>Como podemos mudar o mundo?</h1>

@@ -1,4 +1,3 @@
-/* Modernized landing page styles - mobile-first, responsive and accessible */
 :root {
   --color-green-dark: #008779;
   --color-green-light: #008779;
@@ -61,6 +60,7 @@ background-image: url('../img/unnamed.jpg');
     color: var(--color-white);
     display: flex;
     flex-direction: column;
+    
 }
 
 
@@ -71,7 +71,26 @@ background-image: url('../img/unnamed.jpg');
   padding: 18px 24px;
   backdrop-filter: blur(6px);
   background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+   position: relative;  /* permite que elementos absolutos dentro dela se posicionem */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  position: relative;
+  z-index: 10;
 }
+.user-profile {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  z-index: 1;  
+  visibility: hidden; /* the element remains but becomes invisible */
+
+
+
+}
+
+
 
 .logo { display:flex; align-items:center; gap:10px; }
 .logo img { height:40px; }
@@ -445,18 +464,7 @@ button { font-family: inherit; }
   .fade-enter-active, .fade-exit-active { transition: none !important; }
   * { transition-duration: 0s !important; animation-duration: 0s !important; }
 }
-/* ======================
-   USER PROFILE BUTTON
-   ====================== */
-.user-profile {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  z-index: 999; /* aparece acima da navbar */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .profile-button {
   background: none;

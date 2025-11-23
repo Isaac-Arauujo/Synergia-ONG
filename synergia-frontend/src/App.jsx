@@ -72,7 +72,6 @@ const PublicRoute = ({ children }) => {
 
   return usuario?.isAdmin ? <Navigate to="/admin" replace /> : <Navigate to="/locais" replace />;
 };
-
 function App() {
   return (
     <AuthProvider>

@@ -49,28 +49,29 @@ export default function Perfil() {
             gerar grandes mudanças e inspirar outras pessoas a fazer o mesmo.
           </p>
 
-         <section className="available-locations container">
-          <h2>Seus locais</h2>
+            <section className="available-locations container">
+          <h2>Meus Locais</h2>
           <div className="locations-grid">
-            <div className="location-card-usuario">
+            <div className="location-card">
               <div className="card-image">
                 <img src="src/img/Captura de tela 2025-11-11 204408.png" alt="Voluntário em Cipó-Guaçu" />
               </div>
               <p>Cipó-Guaçu</p>
-              <a href="/local/cipo" className="btn-link">
-                <button className="btn-details">Ver Detalhes</button>
-              </a>
+              <a href="/cipo" className="btn-link">
+  <button className="btn-details">Ver Detalhes</button>
+</a>
             </div>
 
-            <div className="location-card-usuario">
+            <div className="location-card">
               <div className="card-image">
-                <img src="https://imagens.ebc.com.br/jZNaSA3QeJIK98QbfuhU7bcBEfY=/1170x700/smart/https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/rvrsa_abr_080720120506_0.jpg?itok=qUdSTuvR" alt="Voluntário no Rio Tietê" />
+                <img src="https://cj.estrategia.com/portal/wp-content/uploads/2025/01/11193245/173601144167796eb18406f_1736011441_3x2_md.jpg" alt="Voluntário no Guarujá" />
               </div>
-              <p>Rio Tietê</p>
-              <a href="/local/tiete" className="btn-link">
-                <button className="btn-details">Ver Detalhes</button>
-              </a>
+              <p>Guarujá</p>
+              <a href="/guaruja" className="btn-link">
+  <button className="btn-details">Ver Detalhes</button>
+</a>
             </div>
+
           </div>
         </section>
 
